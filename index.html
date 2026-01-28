@@ -1,52 +1,29 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My Mini Browser</title>
     <style>
-        * { box-sizing: border-box; }
-        body { margin: 0; font-family: 'Segoe UI', sans-serif; height: 100vh; display: flex; flex-direction: column; background: #1a1a1a; }
-        
-        /* The Browser Bar */
-        .browser-ui { background: #333; padding: 10px; display: flex; align-items: center; gap: 10px; border-bottom: 2px solid #444; }
-        .dot { height: 12px; width: 12px; border-radius: 50%; display: inline-block; }
-        .red { background: #ff5f56; } .yellow { background: #ffbd2e; } .green { background: #27c93f; }
-        
-        input { flex-grow: 1; padding: 8px 15px; border-radius: 20px; border: none; background: #444; color: white; outline: none; }
-        button { background: #0078d4; color: white; border: none; padding: 8px 20px; border-radius: 20px; cursor: pointer; font-weight: bold; }
-        button:hover { background: #005a9e; }
-
-        /* The Frame where the site shows up */
-        iframe { flex-grow: 1; width: 100%; border: none; background: white; }
-        
-        .footer { font-size: 12px; color: #888; text-align: center; padding: 5px; }
+        body { margin: 0; display: flex; flex-direction: column; height: 100vh; background: #222; color: white; font-family: sans-serif; }
+        .nav { background: #333; padding: 10px; display: flex; gap: 10px; align-items: center; }
+        input { flex-grow: 1; padding: 8px; border-radius: 5px; border: 1px solid #555; background: #444; color: white; }
+        button { padding: 8px 15px; background: #ff1b2d; border: none; color: white; cursor: pointer; border-radius: 5px; font-weight: bold; }
+        iframe { flex-grow: 1; border: none; background: white; }
+        .warning { font-size: 11px; padding: 5px; color: #aaa; text-align: center; }
     </style>
 </head>
 <body>
-
-    <div class="browser-ui">
-        <div style="display: flex; gap: 5px; margin-right: 10px;">
-            <span class="dot red"></span>
-            <span class="dot yellow"></span>
-            <span class="dot green"></span>
-        </div>
-        <input type="text" id="url-bar" placeholder="Type a URL (include https://)...">
-        <button onclick="go()">Browse</button>
+    <div class="nav">
+        <div style="font-weight: bold; color: #ff1b2d;">Opera-Style Mini</div>
+        <input type="text" id="urlInput" value="https://www.bing.com">
+        <button onclick="loadSite()">Go</button>
     </div>
-
-    <iframe id="view-window" src="https://www.wikipedia.org"></iframe>
-
-    <div class="footer">Note: Many sites (like Google) block being shown inside other sites for security.</div>
+    <iframe id="frame" src="https://www.bing.com"></iframe>
+    <div class="warning">Note: Google/Opera block embedding. Use Bing, Wikipedia, or DuckDuckGo for testing.</div>
 
     <script>
-        function go() {
-            let url = document.getElementById('url-bar').value;
-            // Add https if they forgot
-            if (!url.startsWith('http')) {
-                url = 'https://' + url;
-            }
-            document.getElementById('view-window').src = url;
+        function loadSite() {
+            let url = document.getElementById('urlInput').value;
+            if (!url.startsWith('http')) url = 'https://' + url;
+            document.getElementById('frame').src = url;
         }
     </script>
 </body>
